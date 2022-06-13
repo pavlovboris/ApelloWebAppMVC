@@ -1,4 +1,5 @@
 ﻿using ApelloWebAppMVC.Models;
+using ApelloWebAppMVC.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApelloWebAppMVC.Controllers
@@ -12,7 +13,9 @@ namespace ApelloWebAppMVC.Controllers
 
         public IActionResult ProcessLogin(UserModel userModel)
         {
-            if (userModel.Name == "su" && userModel.Password == "cscs")
+            SecurityServices security = new SecurityServices();
+
+            if (security.IsValid(userModel))
             {
                 return View("LoginSuccess", userModel);
             }
